@@ -34,7 +34,7 @@ export const pxScale = {
     return hp(percentage);
   },
 
-  fontSize(px: number, baseHeight: number) {
+  fontSize(px: number, baseHeight?: number) {
     if (isIphoneX()) {
       baseHeight = 812;
     } else {

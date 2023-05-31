@@ -1,5 +1,6 @@
 package com.divinetest;
 import org.devio.rn.splashscreen.SplashScreenReactPackage;
+import com.AlexanderZaytsev.RNI18n.RNI18nPackage; // <-- Add to ReactNativeI18n to the imports
 import android.app.Application;
 import android.content.Context;
 import com.facebook.react.PackageList;

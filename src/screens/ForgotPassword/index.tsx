@@ -11,45 +11,29 @@ import React, {useRef} from 'react';
 import {styles} from './styles';
 import {t} from '../../i18n/i18n';
 import LinearGradient from 'react-native-linear-gradient';
-import HeaderLogin from './components/HeaderLogin';
 import {colors} from '../../constant/colors';
 import {Formik} from 'formik';
 import InputAuth from '../../components/InputAuth';
 import {pxScale} from '../../helpers';
 import {ScrollView} from 'react-native-gesture-handler';
-import {useAppDispatch, useAppSelector} from '../../redux/store';
-import {authActions} from '../../redux/auth/authSlice';
 import ButtonFullGradient from '../../components/ButtonFullGradient';
 import TextGradient from '../../components/TextGradient';
 import * as Yup from 'yup';
 import {useNavigation} from '@react-navigation/native';
 import {screenName} from '../../constant/screenName';
 
-const Login = () => {
-  const language = useAppSelector(store => store.app.language);
-  const loadingLogin = useAppSelector(store => store.auth.loadingLogin);
+const ForgotPassword = () => {
   const navigation = useNavigation();
   const headerLoginRef = useRef<any>();
-  const dispatch = useAppDispatch();
 
   const LoginSchema = Yup.object().shape({
     email: Yup.string().email(t('Invalid_email')).required(t('Email_required')),
-    password: Yup.string()
-      .min(8, t('Password_must_be_at_least_8_character'))
-      .required(t('Password_required')),
   });
 
-  const onLogin = (values: {email: string; password: string}) => {
-    console.log('values', values);
-    dispatch(authActions.login({values}));
-  };
+  const onSendEmail = (values: {email: string}) => {};
 
   const navigateSignUp = () => {
     navigation.navigate(screenName.SIGN_UP);
-  };
-
-  const navigateForgotPassword = () => {
-    navigation.navigate(screenName.FORGOT_PASSWORD);
   };
 
   return (
@@ -68,47 +52,28 @@ const Login = () => {
             <Formik
               initialValues={{email: '', password: ''}}
               validationSchema={LoginSchema}
-              onSubmit={onLogin}>
-              {({handleChange, touched, handleSubmit, values, errors}) => (
+              onSubmit={onSendEmail}>
+              {({handleChange, handleSubmit, values, errors}) => (
                 <KeyboardAvoidingView style={styles.viewForm}>
+                  <Text style={styles.textTitleForgotPassword}>
+                    {t('Forgot_password')}
+                  </Text>
+                  <Text style={styles.textNoteForgot}>
+                    {t('Please_enter_the_email_address_you_d_like')}
+                  </Text>
                   <InputAuth
                     value={values.email}
                     onChange={handleChange('email')}
-                    title={t('Email')}
                     textInputProps={{
                       placeholder: t('Enter_your_email'),
                     }}
-                    error={touched.email && errors.email}
+                    error={errors.email}
                   />
-                  <InputAuth
-                    styleContainer={{marginTop: pxScale.hp(30)}}
-                    value={values.password}
-                    onChange={handleChange('password')}
-                    title={t('Password')}
-                    type="password"
-                    textInputProps={{
-                      placeholder: t('Enter_your_password'),
-                    }}
-                    error={touched.password && errors.password}
-                  />
-                  <TouchableOpacity
-                    onPress={navigateForgotPassword}
-                    style={{marginTop: pxScale.hp(10)}}>
-                    <TextGradient style={styles.textForgot}>
-                      {`${t('Forgot_password')}?`}
-                    </TextGradient>
-                  </TouchableOpacity>
 
                   <ButtonFullGradient
                     styleContainer={{marginTop: pxScale.hp(40)}}
-                    loading={loadingLogin}
                     onPress={handleSubmit}
-                    title={t('Sign_in')}
-                  />
-                  <HeaderLogin
-                    styleContainer={styles.headerContainer}
-                    ref={headerLoginRef}
-                    title={t('Sign_in')}
+                    title={t('Send_email')}
                   />
                 </KeyboardAvoidingView>
               )}
@@ -118,7 +83,7 @@ const Login = () => {
               <Text style={styles.textDontHaveAccount}>
                 {t('Dont_have_any_account')}?{' '}
               </Text>
-              <TouchableOpacity onPress={navigateSignUp} style={{}}>
+              <TouchableOpacity onPress={navigateSignUp}>
                 <TextGradient style={styles.textDontHaveAccountGradient}>
                   {t('Sign_up')}
                 </TextGradient>
@@ -131,4 +96,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default ForgotPassword;

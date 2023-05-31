@@ -6,12 +6,26 @@ const initialState: {
     email: string;
   };
   token?: string;
-} = {};
+  loadingLogin: boolean;
+  errorLogin?: string;
+} = {
+  loadingLogin: false,
+};
 
 const authSlice = createSlice({
   name: 'auth',
   initialState: initialState,
-  reducers: {},
+  reducers: {
+    login: (state, action) => {
+      state.loadingLogin = true;
+    },
+    loginSuccess: (state, action) => {
+      state.loadingLogin = false;
+    },
+    loginFailure: (state, action) => {
+      state.loadingLogin = false;
+    },
+  },
 });
 
 export const authActions = authSlice.actions;
