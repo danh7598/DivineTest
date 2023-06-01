@@ -33,4 +33,9 @@ export const styles = StyleSheet.create({
   textItemLanguage: {
     fontSize: pxScale.fontSize(14),
   },
+  imageFlag: {
+    width: pxScale.wp(30),
+    height: pxScale.hp(30),
+    marginLeft: pxScale.wp(20),
+  },
 });

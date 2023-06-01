@@ -26,6 +26,7 @@ const LanguagePicker = ({isOpen, onTogglePicker}: Props) => {
           {language === 'en' ? t('English') : t('Vietnamese')}
         </Text>
         <Image source={AppImages.iconDownWhite} style={styles.imgDown} />
+        <Image source={AppImages.usFlag} style={styles.imageFlag} />
       </TouchableOpacity>
       {isOpen && (
         <View style={styles.modalLanguage}>

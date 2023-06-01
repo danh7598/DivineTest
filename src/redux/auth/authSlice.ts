@@ -41,6 +41,10 @@ const authSlice = createSlice({
     signupFailure: (state, action) => {
       state.loadingSignUp = false;
     },
+    logout: (state) => {
+      state.token = undefined;
+      state.user = undefined;
+    },
   },
 });
 

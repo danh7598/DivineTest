@@ -18,9 +18,4 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
-  imageFlag: {
-    width: pxScale.wp(30),
-    height: pxScale.hp(30),
-    marginLeft: pxScale.wp(20),
-  },
 });

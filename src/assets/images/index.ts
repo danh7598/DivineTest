@@ -8,4 +8,9 @@ export const AppImages = {
   iconTabProfileInactive: require('./icon-tab-profile-inactive.png'),
   iconTabBooking: require('./icon-tab-booking.png'),
   iconTabBookingInactive: require('./icon-tab-booking-inactive.png'),
+  back: require('./back.png'),
+  pencil: require('./pencil.png'),
+  avatar: require('./avatar.png'),
+  edit: require('./edit.png'),
+  logout: require('./logout.png'),
 };

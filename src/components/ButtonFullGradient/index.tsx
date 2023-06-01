@@ -10,11 +10,13 @@ import LinearGradient from 'react-native-linear-gradient';
 import {colors} from '../../constant/colors';
 
 type Props = {
-  title: string;
+  title?: string;
   colorsGradient?: string[];
   styleContainer?: ViewStyle;
   onPress?: () => void;
   loading?: boolean;
+  children?: React.ReactNode;
+  linearStyle?: ViewStyle;
 };
 
 const ButtonFullGradient = ({
@@ -23,19 +25,22 @@ const ButtonFullGradient = ({
   colorsGradient,
   onPress,
   loading,
+  children,
+  linearStyle,
 }: Props) => {
   return (
     <TouchableOpacity
       onPress={onPress}
       style={[styles.container, styleContainer]}>
       <LinearGradient
-        style={styles.linearStyle}
+        style={[styles.linearStyle, linearStyle]}
         colors={colorsGradient || colors.gradientButton}>
         {loading ? (
           <ActivityIndicator />
         ) : (
-          <Text style={styles.textButton}>{title}</Text>
+          title && <Text style={styles.textButton}>{title}</Text>
         )}
+        {children}
       </LinearGradient>
     </TouchableOpacity>
   );

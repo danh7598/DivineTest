@@ -5,7 +5,7 @@ import {AxiosResponse} from 'axios';
 import Toast from 'react-native-toast-message';
 import {API_ENDPOINT} from '../../constant/config';
 import API from '../../services/api';
-import {navigateAndReset} from '../../navigation/navigationHelper';
+import {navigateAndSimpleReset} from '../../navigation/navigationHelper';
 import {screenName} from '../../constant/screenName';
 
 interface ILoginResponse {}
@@ -32,7 +32,7 @@ export function* loginSaga(action: AnyAction) {
           },
         }),
       );
-      navigateAndReset([screenName.ROOT_TAB]);
+      navigateAndSimpleReset(screenName.ROOT_TAB);
     } else {
       const response: AxiosResponse<ILoginResponse> = yield API.post(
         API_ENDPOINT.login,
@@ -76,8 +76,13 @@ export function* signupSaga(action: AnyAction) {
   }
 }
 
+export function* logoutSaga() {
+  navigateAndSimpleReset(screenName.LOGIN);
+}
+
 // Define the watcher generator function that will watch for incoming actions
 export function* authSaga() {
   yield takeLatest(authActions.login, loginSaga);
   yield takeLatest(authActions.signup, signupSaga);
+  yield takeLatest(authActions.logout, logoutSaga);
 }

@@ -9,8 +9,6 @@ import SignUp from '../screens/SignUp';
 import {useAppSelector} from '../redux/store';
 import ForgotPassword from '../screens/ForgotPassword';
 import {navigationRef} from './navigationHelper';
-import Home from '../screens/Home';
-import Booking from '../screens/Booking';
 import {bottomTabs} from './screen';
 import {Image, StyleSheet, Text, View} from 'react-native';
 import {AppImages} from '../assets/images';
@@ -24,12 +22,12 @@ const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
 const RootNavigation = () => {
-  const language = useAppSelector(store => store.app.language);
   const token = useAppSelector(store => store.auth.token);
   const RootTab = () => {
     return (
       <Tab.Navigator
         screenOptions={{
+          headerShown: false,
           tabBarStyle: styles.tabbarStyle,
           tabBarBackground: () => (
             <LinearGradient
@@ -38,8 +36,9 @@ const RootNavigation = () => {
             />
           ),
         }}>
-        {bottomTabs.map(tab => (
+        {bottomTabs.map((tab, index) => (
           <Tab.Screen
+            key={`tab-${index}`}
             name={tab.name}
             component={tab.component}
             options={{

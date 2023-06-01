@@ -2,8 +2,7 @@ import {screenName} from '../constant/screenName';
 import {t} from '../i18n/i18n';
 import Booking from '../screens/Booking';
 import Home from '../screens/Home';
-
-
+import Profile from '../screens/Profile';
 
 export const bottomTabs = [
   {
@@ -20,7 +19,7 @@ export const bottomTabs = [
   },
   {
     name: screenName.PROFILE,
-    component: Home,
+    component: Profile,
     iconName: 'Profile',
     title: t('Profile'),
   },

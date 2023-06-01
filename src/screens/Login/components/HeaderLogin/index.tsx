@@ -33,7 +33,6 @@ const HeaderLogin = forwardRef(({title, styleContainer}: Props, ref) => {
           isOpen={isOpenPicker}
           onTogglePicker={() => setIsOpenPicker(!isOpenPicker)}
         />
-        <Image source={AppImages.usFlag} style={styles.imageFlag} />
       </View>
     </View>
   );
