@@ -11,7 +11,6 @@ import React, {useRef} from 'react';
 import {styles} from './styles';
 import {t} from '../../i18n/i18n';
 import LinearGradient from 'react-native-linear-gradient';
-import HeaderLogin from './components/HeaderLogin';
 import {colors} from '../../constant/colors';
 import {Formik} from 'formik';
 import InputAuth from '../../components/InputAuth';
@@ -25,7 +24,7 @@ import * as Yup from 'yup';
 import {useNavigation} from '@react-navigation/native';
 import {screenName} from '../../constant/screenName';
 
-const Login = () => {
+const Home = () => {
   const language = useAppSelector(store => store.app.language);
   const loadingLogin = useAppSelector(store => store.auth.loadingLogin);
   const navigation = useNavigation();
@@ -103,11 +102,6 @@ const Login = () => {
                     onPress={handleSubmit}
                     title={t('Sign_in')}
                   />
-                  <HeaderLogin
-                    styleContainer={styles.headerContainer}
-                    ref={headerLoginRef}
-                    title={t('Sign_in')}
-                  />
                 </KeyboardAvoidingView>
               )}
             </Formik>
@@ -129,4 +123,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Home;

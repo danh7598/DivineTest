@@ -2,4 +2,8 @@ export const screenName = {
   LOGIN: 'LOGIN',
   SIGN_UP: 'SIGN_UP',
   FORGOT_PASSWORD: 'FORGOT_PASSWORD',
+  HOME: 'HOME',
+  ROOT_TAB: 'ROOT_TAB',
+  PROFILE: 'PROFILE',
+  BOOKING: 'BOOKING',
 };

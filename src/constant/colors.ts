@@ -13,6 +13,7 @@ export const colors = {
   '#F4DD62': '#F4DD62',
   '#F4E38B': '#F4E38B',
   '#F0F2F4-94': 'rgba(240, 242, 244, 0.94)',
+  '#C1C7CD': '#C1C7CD',
   gradientButton: [
     'rgba(178, 127, 42, 1)',
     'rgba(183, 134, 46, 1)',

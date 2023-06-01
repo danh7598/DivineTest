@@ -35,5 +35,9 @@ export default {
   Last_name_is_required: 'Last name is required',
   Mobile_number_is_required: 'Mobile number is required',
   Repeat_Password_is_required: 'Repeat password is required',
+  Repeat_Password_must_be_same: 'Repeat password must be same as Password',
   Send_email: 'Send email',
+  Home: 'Home',
+  Booking: 'Booking',
+  Profile: 'Profile',
 };

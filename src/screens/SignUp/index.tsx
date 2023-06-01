@@ -27,8 +27,8 @@ import {screenName} from '../../constant/screenName';
 
 const SignUp = () => {
   const language = useAppSelector(store => store.app.language);
-  const loadingLogin = useAppSelector(store => store.auth.loadingLogin);
-  console.log('Login ~ loadingLogin:', loadingLogin);
+  const loadingSignUp = useAppSelector(store => store.auth.loadingSignUp);
+  console.log('Login ~ loadingLogin:', loadingSignUp);
   const navigation = useNavigation();
   const headerLoginRef = useRef<any>();
   const dispatch = useAppDispatch();
@@ -42,7 +42,7 @@ const SignUp = () => {
     repeatPassword: '',
   };
 
-  const LoginSchema = Yup.object().shape({
+  const SignUpSchema = Yup.object().shape({
     email: Yup.string().email(t('Invalid_email')).required(t('Email_required')),
     password: Yup.string()
       .min(8, t('Password_must_be_at_least_8_character'))
@@ -54,11 +54,31 @@ const SignUp = () => {
       .min(3, t('Last_name_must_be_at_least_3_characters'))
       .required(t('Last_name_is_required')),
     mobileNumber: Yup.string().required(t('Mobile_number_is_required')),
-    repeatPassword: Yup.string().required(t('Repeat_Password_is_required')),
+    repeatPassword: Yup.string()
+      .oneOf([Yup.ref('password')], t('Repeat_Password_must_be_same'))
+      .required(t('Repeat_Password_is_required')),
   });
 
-  const onLogin = (values: {email: string; password: string}) => {
-    dispatch(authActions.login({values}));
+  const onSignup = (values: {
+    email: string;
+    password: string;
+    firstName: string;
+    lastName: string;
+    mobileNumber: string;
+    repeatPassword: string;
+  }) => {
+    dispatch(
+      authActions.signup({
+        values: {
+          first_name: values.firstName,
+          last_name: values.lastName,
+          number_phone: values.mobileNumber,
+          email: values.email,
+          password: values.password,
+          password_confirmation: values.repeatPassword,
+        },
+      }),
+    );
   };
 
   const navigateLogin = () => {
@@ -82,9 +102,9 @@ const SignUp = () => {
           }}>
           <Formik
             initialValues={initialValues}
-            validationSchema={LoginSchema}
-            onSubmit={onLogin}>
-            {({handleChange, handleBlur, handleSubmit, values, errors}) => (
+            validationSchema={SignUpSchema}
+            onSubmit={onSignup}>
+            {({handleChange, touched, handleSubmit, values, errors}) => (
               <KeyboardAvoidingView style={styles.viewForm}>
                 <InputAuth
                   value={values.firstName}
@@ -93,7 +113,7 @@ const SignUp = () => {
                   textInputProps={{
                     placeholder: t('Please_enter_first_name'),
                   }}
-                  error={errors.firstName}
+                  error={touched.firstName && errors.firstName}
                 />
                 <InputAuth
                   styleContainer={{marginTop: pxScale.hp(30)}}
@@ -103,7 +123,7 @@ const SignUp = () => {
                   textInputProps={{
                     placeholder: t('Please_enter_last_name'),
                   }}
-                  error={errors.lastName}
+                  error={touched.lastName && errors.lastName}
                 />
                 <InputAuth
                   styleContainer={{marginTop: pxScale.hp(30)}}
@@ -112,8 +132,9 @@ const SignUp = () => {
                   title={t('Mobile_number')}
                   textInputProps={{
                     placeholder: t('Please_enter_mobile_phone'),
+                    keyboardType: 'phone-pad',
                   }}
-                  error={errors.mobileNumber}
+                  error={touched.mobileNumber && errors.mobileNumber}
                 />
                 <InputAuth
                   styleContainer={{marginTop: pxScale.hp(30)}}
@@ -123,7 +144,7 @@ const SignUp = () => {
                   textInputProps={{
                     placeholder: t('Enter_your_email'),
                   }}
-                  error={errors.email}
+                  error={touched.email && errors.email}
                 />
                 <InputAuth
                   styleContainer={{marginTop: pxScale.hp(30)}}
@@ -134,7 +155,7 @@ const SignUp = () => {
                   textInputProps={{
                     placeholder: t('Enter_your_password'),
                   }}
-                  error={errors.password}
+                  error={touched.password && errors.password}
                 />
                 <InputAuth
                   styleContainer={{marginTop: pxScale.hp(30)}}
@@ -145,12 +166,12 @@ const SignUp = () => {
                   textInputProps={{
                     placeholder: t('Enter_your_password'),
                   }}
-                  error={errors.repeatPassword}
+                  error={touched.repeatPassword && errors.repeatPassword}
                 />
 
                 <ButtonFullGradient
                   styleContainer={{marginTop: pxScale.hp(40)}}
-                  loading={loadingLogin}
+                  loading={loadingSignUp}
                   onPress={handleSubmit}
                   title={t('Sign_up')}
                 />

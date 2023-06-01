@@ -32,5 +32,9 @@ export default {
   Last_name_is_required: 'Bạn phải nhập Tên',
   Mobile_number_is_required: 'Bạn phải nhập số điện thoại',
   Repeat_Password_is_required: 'Bạn phải nhập lại mật khẩu',
+  Repeat_Password_must_be_same: 'Mật khẩu nhập lại phải giống mật khẩu trên',
   Send_email: 'Gửi email',
+  Home: 'Home',
+  Booking: 'Booking',
+  Profile: 'Profile',
 };

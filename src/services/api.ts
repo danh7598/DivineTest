@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, {AxiosError} from 'axios';
 import {store} from '../redux/store';
 import {API_URL} from '../constant/config';
 
@@ -8,27 +8,30 @@ const API = axios.create({
 
 API.interceptors.request.use(
   function (config) {
+    console.log('config:', config);
     config.headers.Authorization = `Bearer ${store.getState().auth.token}`;
     return config;
   },
   function (error) {
+    console.log('error request:', error);
     // Do something with request error
     return Promise.reject(error);
   },
 );
 
 // Add a response interceptor
-axios.interceptors.response.use(
+API.interceptors.response.use(
   function (response) {
+    console.log('response:', response);
     // Any status code that lie within the range of 2xx cause this function to trigger
     // Do something with response data
     return response;
   },
-  function (error) {
-    console.log('error responmse', error);
+  function (error: AxiosError) {
+    console.log('error responmse', error.response);
     // Any status codes that falls outside the range of 2xx cause this function to trigger
     // Do something with response error
-    return Promise.reject(error);
+    return Promise.reject(error.response);
   },
 );
 
